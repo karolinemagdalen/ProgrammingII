@@ -13,14 +13,14 @@ public class Customer {
     private String name; 
     private String address;
     private String profession;
-    private int noOfAppsUsed;
+    private int noOfAppsUsed;           //no of apps each customer has used as a free trial.
     private int noOfPurchasedApps;
     
     
+    //system shud be able to add,edit,list,search, and delete customers.
     
     
-    
-    public void totalNoOfCustomers() {
+    public void totalNoOfCustomers() {    //return total number of customers.
         
     }
     
