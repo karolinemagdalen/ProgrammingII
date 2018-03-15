@@ -1,16 +1,32 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package progcoursework;
 
 /**
- *
  * @author Me
  */
-public class GamesApp {
-    private String x;
+public class GamesApp extends App{
+    private String genre;
+    private int minAgeLimit;
+
+    public GamesApp(String appName, String appDescription, int noOfDownloads, String typeOfApp, double appCost, boolean freeApp, String developerName, String genre, int minAgeLimit) {
+        super(appName, appDescription, noOfDownloads, typeOfApp, appCost, freeApp, developerName);
+        this.genre = genre;
+        this.minAgeLimit = minAgeLimit;
+    }
+
+    public String getGenre() {
+        return genre;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
     
+    public int getMinAgeLimit() {
+        return minAgeLimit;
+    }
+
+    public void setMinAgeLimit(int minAgeLimit) {
+        this.minAgeLimit = minAgeLimit;
+    }
     
 }
