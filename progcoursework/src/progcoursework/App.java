@@ -27,7 +27,7 @@ public abstract class App {  //superclass are generalized classes
         this.developerName = developerName;
     }
     
-    public App(String appName, String appDescription, int noOfDownloads, /*String typeOfApp,*/ double appCost, boolean freeApp, 
+    /*public App(String appName, String appDescription, int noOfDownloads, /*String typeOfApp,*/ /*double appCost, boolean freeApp, 
             String developerName, Administrator aAdministrator) {
         this.appName = appName;
         this.appDescription = appDescription;
@@ -40,7 +40,7 @@ public abstract class App {  //superclass are generalized classes
         setAdministrator(aAdministrator);
         //tell administrator to associate with this app
         administrator.addAppToAdministrator(this);
-    }
+    }*/
 
     
     public String getAppName() {
@@ -133,13 +133,17 @@ public abstract class App {  //superclass are generalized classes
 
     Scanner getSomeTyping = new Scanner(System.in); 	
     //system shud be able to add,edit,list,search, and delete Apps.
-    public void addApp() {
-        System.out.println("Please fill out the following details to add an app."); //
+    /*public void addApp(String appName, String appDescription, int noOfDownloads, /*String typeOfApp,*/ /*double appCost, 
+            boolean freeApp, String developerName, String category, int minAgeLimit, String name, String Type) {
+        
+        App name = new NewsApp(appName,appDescription,noOfDownloads,appCost,freeApp,developerName,category,minAgeLimit);
+        
+        /*System.out.println("Please fill out the following details to add an app."); //
         //int i;
         //for (i=0;i<=5;i++) {
-            String addApp = getSomeTyping.nextLine();
+            String addApp = getSomeTyping.nextLine();*/
         //}
-    }
+    //}
     
     
 }

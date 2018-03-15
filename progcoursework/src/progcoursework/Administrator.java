@@ -48,7 +48,10 @@ public class Administrator {
         this.apps = apps;
     }*/
     
-    
+    public void add(String appName, String appDescription, int noOfDownloads, /*String typeOfApp,*/ double appCost, 
+            boolean freeApp, String developerName, String category, int minAgeLimit){
+        NewsApp newsApp = new NewsApp(appName,appDescription,noOfDownloads,appCost,freeApp,developerName,category,minAgeLimit);
+    }
     
     
     

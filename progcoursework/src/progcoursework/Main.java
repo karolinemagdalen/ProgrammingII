@@ -15,17 +15,21 @@ public class Main
     
     //Order order1;
     Administrator admin1;
-    NewsApp newsapp1;
-    GamesApp gamesapp1;
-    GamesApp gamesapp2;
+    App newsapp1;
+    App newsapp2;
+    App newsapp3;
+    //GamesApp gamesapp1;
+    //GamesApp gamesapp2;
     
     //int orderId, String dateOfPurchase, AcademicCustomer academic_customer, StudentCustomer student_customer
     //String appName, String appDescription, int noOfDownloads, /*String typeOfApp,*/ double appCost, boolean freeApp, 
     ////////////////////////String developerName, String genre, int minAgeLimit
     //order1 = new Order(000001,"15/03/2018");
-    admin1 = new Administrator("Boss",25);
+    //admin1 = new Administrator("Boss",25);
     //create 3 app instances for the order
-    newsapp1 = new NewsApp("Twitter","140 characters",14,14.50,true,"James Kelvin","Sports",11,admin1);
+    newsapp1 = new NewsApp("Twitter","140 characters",14,14.50,true,"James Kelvin","Sports",11);
+    newsapp1 = new NewsApp("Facebook","Social Media ",16,10.50,true,"James Kelvin","Sports",11);
+    newsapp1 = new NewsApp("Snapchat","Make limited videos",10,5.50,true,"James Kelvin","Sports",11);
     //gamesapp1 = new GamesApp("Jungle Race","Run in a jungle",10,10.50,true,"Tim Jones","Racing",20,admin1);
     //gamesapp2 = new GamesApp("Jingle Bell","Ring Ring Ring!",5,9.00,true,"Jaimin Desai","Simulations",5,admin1);
     
@@ -59,4 +63,21 @@ public class Main
       //}
     
   }   
+  public void addApp(String appName, String appDescription, int noOfDownloads, /*String typeOfApp,*/ double appCost, 
+            boolean freeApp, String developerName, String category, int minAgeLimit, String namee, Class className) {
+        
+        try {
+            App obj = (App) className.newInstance();
+            App obj1 = (App) className.newInstance(appName,appDescription,noOfDownloads,appCost,freeApp,developerName,category,minAgeLimit);
+        }
+        catch (Exception ex) {
+            
+        }
+        
+        /*System.out.println("Please fill out the following details to add an app."); //
+        //int i;
+        //for (i=0;i<=5;i++) {
+            String addApp = getSomeTyping.nextLine();*/
+        //}
+    }
 }
