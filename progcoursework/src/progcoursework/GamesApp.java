@@ -7,10 +7,17 @@ public class GamesApp extends App{
     private String genre;
     private int minAgeLimit;
 
-    public GamesApp(String appName, String appDescription, int noOfDownloads, String typeOfApp, double appCost, boolean freeApp, String developerName, String genre, int minAgeLimit) {
-        super(appName, appDescription, noOfDownloads, typeOfApp, appCost, freeApp, developerName);
+    private Administrator administrator;
+    
+    public GamesApp(String appName, String appDescription, int noOfDownloads, /*String typeOfApp,*/ double appCost, 
+            boolean freeApp, String developerName, String genre, int minAgeLimit/*, Administrator aAdministrator*/) {
+        super(appName, appDescription, noOfDownloads, /*typeOfApp,*/ appCost, freeApp, developerName);
         this.genre = genre;
         this.minAgeLimit = minAgeLimit;
+        //assign App to an existing administrator
+        //setAdministrator(aAdministrator);
+        //tell administrator to associate with this app
+        //administrator.addAppToAdministrator(this);
     }
 
     public String getGenre() {

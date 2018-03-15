@@ -9,20 +9,37 @@ public abstract class App {  //superclass are generalized classes
     protected String appName;
     protected String appDescription;
     protected int noOfDownloads;    //app popularity
-    protected String typeOfApp;     //inherited            //price may vary depending on type of cusotmer.
+    //protected String typeOfApp;     //inherited            //price may vary depending on type of cusotmer.
     protected double appCost;       //amount to be paid if the App is not a free trial (a customer may buy few Apps at once)
     protected boolean freeApp;    //whether the app is for free trial or purchasing
     protected String developerName;
     //private int totalAppsPurchased;  //shud be able to return total no of apps purchased. (seems method)
-
-    public App(String appName, String appDescription, int noOfDownloads, String typeOfApp, double appCost, boolean freeApp, String developerName) {
+    private Administrator administrator;
+    
+    public App(String appName, String appDescription, int noOfDownloads, /*String typeOfApp,*/ double appCost, boolean freeApp, 
+            String developerName) {
         this.appName = appName;
         this.appDescription = appDescription;
         this.noOfDownloads = noOfDownloads;
-        this.typeOfApp = typeOfApp;
+        //this.typeOfApp = typeOfApp;
         this.appCost = appCost;
         this.freeApp = freeApp;
         this.developerName = developerName;
+    }
+    
+    public App(String appName, String appDescription, int noOfDownloads, /*String typeOfApp,*/ double appCost, boolean freeApp, 
+            String developerName, Administrator aAdministrator) {
+        this.appName = appName;
+        this.appDescription = appDescription;
+        this.noOfDownloads = noOfDownloads;
+        //this.typeOfApp = typeOfApp;
+        this.appCost = appCost;
+        this.freeApp = freeApp;
+        this.developerName = developerName;
+        //assign App to an existing administrator
+        setAdministrator(aAdministrator);
+        //tell administrator to associate with this app
+        administrator.addAppToAdministrator(this);
     }
 
     
@@ -50,13 +67,13 @@ public abstract class App {  //superclass are generalized classes
         this.noOfDownloads = noOfDownloads;
     }
 
-    public String getTypeOfApp() {
+    /*public String getTypeOfApp() {
         return typeOfApp;
     }
 
     public void setTypeOfApp(String typeOfApp) {
         this.typeOfApp = typeOfApp;
-    }
+    }*/
 
     public double getAppCost() {
         return appCost;
@@ -82,6 +99,19 @@ public abstract class App {  //superclass are generalized classes
         this.developerName = developerName;
     }
 
+    public Administrator getAdministrator() {
+        return administrator;
+    }
+
+    public void setAdministrator(Administrator aAdministrator) {
+        this.administrator = aAdministrator;
+    }
+
+    
+    
+    
+    
+    
     public Scanner getGetSomeTyping() {
         return getSomeTyping;
     }
