@@ -98,7 +98,7 @@ public class ApplicationModel {
     
     public ResultSet doQuery(Connection con, String table, String type, String typeValue) throws SQLException {
         //db_connection("appstore");
-        String query = "select * from "+table+" where "+type+" = '"+typeValue+"'";
+        String query = "select * from "+table;/*+" where "+type+" = '"+typeValue+"'";*/
             
         try {
             //PreparedStatement ps = con.prepareStatement(query);
@@ -157,6 +157,14 @@ public class ApplicationModel {
     }
     
     App bbc;
+    App fox;
+    App cnn;
+    App netflix;
+    App hbo;
+    App spotify;
+    App templerun;
+    App needforspeed;
+    App fornite;
     // requirement 1 implement a method public Shop createShop(String csvString)
     public void createApp(ResultSet rs){         //called from redShops to add shop to Shop arraylist
         
@@ -169,7 +177,7 @@ public class ApplicationModel {
             /*int noOfDownloads = Integer.parseInt(attr[2]);
             double appCost = Double.parseDouble(attr[3]);
             boolean freeApp = Boolean.parseBoolean(attr[4]);*/
-            if(rs.next()) {
+            while(rs.next()) {
                 //result.add(new NewsApp(
                 /*rs.getString(1),
                 rs.getString(2),
@@ -193,10 +201,40 @@ public class ApplicationModel {
                 String genre = rs.getString("genre");
                 int minAgeLimit = rs.getInt("minAgeLimit");
                 
-                System.out.println(typeOfApp + " " + appName + " " +  appDescription + " " + noOfDownloads +
+                System.out.println(typeOfApp + "               " + appName + " " +  appDescription + " " + noOfDownloads +
                         " " + appCost + " " +  freeApp + " " +  developerName + " " +  appLogoAddress
                         + " " +  category+ " " + genre + " " +  minAgeLimit);
-                bbc = new NewsApp(typeOfApp, appName, appDescription, noOfDownloads, appCost, freeApp, developerName, appLogoAddress, category, minAgeLimit) {};
+                //System.out.println(appName);
+                
+                switch(appName) {
+                    case "BBC" :
+                        bbc = new NewsApp(typeOfApp, appName, appDescription, noOfDownloads, appCost, freeApp, developerName, appLogoAddress, category, minAgeLimit) {};
+                        break;
+                    case "Fox News" :
+                        fox = new NewsApp(typeOfApp, appName, appDescription, noOfDownloads, appCost, freeApp, developerName, appLogoAddress, category, minAgeLimit) {};
+                        break;
+                    case "CNN" :
+                        cnn = new NewsApp(typeOfApp, appName, appDescription, noOfDownloads, appCost, freeApp, developerName, appLogoAddress, category, minAgeLimit) {};
+                        break;
+                    case "Netflix" :
+                        netflix = new EntertainmentApp(typeOfApp, appName, appDescription, noOfDownloads, appCost, freeApp, developerName, appLogoAddress, category, minAgeLimit) {};
+                        break;
+                    case "HBO" :
+                        hbo = new EntertainmentApp(typeOfApp, appName, appDescription, noOfDownloads, appCost, freeApp, developerName, appLogoAddress, category, minAgeLimit) {};
+                        break;
+                    case "Spotify" :
+                        spotify = new EntertainmentApp(typeOfApp, appName, appDescription, noOfDownloads, appCost, freeApp, developerName, appLogoAddress, category, minAgeLimit) {};
+                        break;
+                    case "Temple Run" :
+                        templerun = new GamesApp(typeOfApp, appName, appDescription, noOfDownloads, appCost, freeApp, developerName, appLogoAddress, category, minAgeLimit) {};
+                        break;
+                    case "Need For Speed" :
+                        needforspeed = new GamesApp(typeOfApp, appName, appDescription, noOfDownloads, appCost, freeApp, developerName, appLogoAddress, category, minAgeLimit) {};
+                        break;
+                    case "Fornite" :
+                        fornite = new GamesApp(typeOfApp, appName, appDescription, noOfDownloads, appCost, freeApp, developerName, appLogoAddress, category, minAgeLimit) {};
+                        break;
+                }
             }
         } catch (SQLException ex) {
             System.out.println("App object cannot be created (createApps).");
@@ -221,12 +259,13 @@ public class ApplicationModel {
         String b = a.replaceAll("  "," ");*/
         //String[] attr = csvString.split(",");
         //String typeOfApp = null;
+        System.out.println("Customer Details:");
         try {
             //String[] addre = attr[1].split(":");
             /*int noOfDownloads = Integer.parseInt(attr[2]);
             double appCost = Double.parseDouble(attr[3]);
             boolean freeApp = Boolean.parseBoolean(attr[4]);*/
-            if(rs.next()) {
+            while(rs.next()) {
                 //result.add(new NewsApp(
                 /*rs.getString(1),
                 rs.getString(2),
@@ -248,12 +287,78 @@ public class ApplicationModel {
                 
                 System.out.println(typeOfCustomer + " " + name + " " +  age + " " + address +
                         " " + profession + " " +  noOfAppsUsed + " " +  noOfAppsPurchased);
-                try {
+                switch(name) {
+                    case "David Jones" :
+                        Customer david1 = new AcademicCustomer(typeOfCustomer, name, age, address, profession, noOfAppsUsed, noOfAppsPurchased, bbc) {};
+                        Customer david2 = new AcademicCustomer(typeOfCustomer, name, age, address, profession, noOfAppsUsed, noOfAppsPurchased, netflix) {};
+                        Customer david3 = new AcademicCustomer(typeOfCustomer, name, age, address, profession, noOfAppsUsed, noOfAppsPurchased, fox) {};
+                        Customer david4 = new AcademicCustomer(typeOfCustomer, name, age, address, profession, noOfAppsUsed, noOfAppsPurchased, templerun) {};
+                        Customer david5 = new AcademicCustomer(typeOfCustomer, name, age, address, profession, noOfAppsUsed, noOfAppsPurchased, hbo) {};
+                        //Customer david = new AcademicCustomer(typeOfCustomer, name, age, address, profession, noOfAppsUsed, noOfAppsPurchased, cnn) {};
+                        //Customer david = new AcademicCustomer(typeOfCustomer, name, age, address, profession, noOfAppsUsed, noOfAppsPurchased, bbc) {};
+                        break;
+                    case "Robert Donero" :
+                        Customer robert1 = new AcademicCustomer(typeOfCustomer, name, age, address, profession, noOfAppsUsed, noOfAppsPurchased, cnn) {};
+                        Customer robert2 = new AcademicCustomer(typeOfCustomer, name, age, address, profession, noOfAppsUsed, noOfAppsPurchased, netflix) {};
+                        Customer robert3 = new AcademicCustomer(typeOfCustomer, name, age, address, profession, noOfAppsUsed, noOfAppsPurchased, bbc) {};
+                        break;
+                    case "Chris Brown" :
+                        Customer chris1 = new AcademicCustomer(typeOfCustomer, name, age, address, profession, noOfAppsUsed, noOfAppsPurchased, cnn) {};
+                        Customer chris2 = new AcademicCustomer(typeOfCustomer, name, age, address, profession, noOfAppsUsed, noOfAppsPurchased, netflix) {};
+                        Customer chris3 = new AcademicCustomer(typeOfCustomer, name, age, address, profession, noOfAppsUsed, noOfAppsPurchased, templerun) {};
+                        Customer chris4 = new AcademicCustomer(typeOfCustomer, name, age, address, profession, noOfAppsUsed, noOfAppsPurchased, needforspeed) {};
+                        Customer chris5 = new AcademicCustomer(typeOfCustomer, name, age, address, profession, noOfAppsUsed, noOfAppsPurchased, spotify) {};
+                        break;
+                    case "Phil Hall" :
+                        Customer phil1 = new StudentCustomer(typeOfCustomer, name, age, address, profession, noOfAppsUsed, noOfAppsPurchased, cnn) {};
+                        Customer phil2 = new StudentCustomer(typeOfCustomer, name, age, address, profession, noOfAppsUsed, noOfAppsPurchased, hbo) {};
+                        break;
+                    case "Sara Tancredi" :
+                        Customer sara1 = new StudentCustomer(typeOfCustomer, name, age, address, profession, noOfAppsUsed, noOfAppsPurchased, hbo) {};
+                        Customer sara2 = new StudentCustomer(typeOfCustomer, name, age, address, profession, noOfAppsUsed, noOfAppsPurchased, fornite) {};
+                        Customer sara3 = new StudentCustomer(typeOfCustomer, name, age, address, profession, noOfAppsUsed, noOfAppsPurchased, fox) {};
+                        break;
+                    case "Michael Scoffield" :
+                        Customer micheal1 = new StudentCustomer(typeOfCustomer, name, age, address, profession, noOfAppsUsed, noOfAppsPurchased, needforspeed) {};
+                        break;
+                    case "Daniel Smith" :
+                        Customer daniel1 = new OtherCustomer(typeOfCustomer, name, age, address, profession, noOfAppsUsed, noOfAppsPurchased, templerun) {};
+                        Customer daniel2 = new OtherCustomer(typeOfCustomer, name, age, address, profession, noOfAppsUsed, noOfAppsPurchased, cnn) {};
+                        Customer daniel3 = new OtherCustomer(typeOfCustomer, name, age, address, profession, noOfAppsUsed, noOfAppsPurchased, spotify) {};
+                        Customer daniel4 = new OtherCustomer(typeOfCustomer, name, age, address, profession, noOfAppsUsed, noOfAppsPurchased, needforspeed) {};
+                        break;
+                    case "Maria Sharapova" :
+                        Customer maria1 = new OtherCustomer(typeOfCustomer, name, age, address, profession, noOfAppsUsed, noOfAppsPurchased, cnn) {};
+                        Customer maria2 = new OtherCustomer(typeOfCustomer, name, age, address, profession, noOfAppsUsed, noOfAppsPurchased, templerun) {};
+                        Customer maria3 = new OtherCustomer(typeOfCustomer, name, age, address, profession, noOfAppsUsed, noOfAppsPurchased, fornite) {};
+                        Customer maria4 = new OtherCustomer(typeOfCustomer, name, age, address, profession, noOfAppsUsed, noOfAppsPurchased, needforspeed) {};
+                        Customer maria5 = new OtherCustomer(typeOfCustomer, name, age, address, profession, noOfAppsUsed, noOfAppsPurchased, hbo) {};
+                        Customer maria6 = new OtherCustomer(typeOfCustomer, name, age, address, profession, noOfAppsUsed, noOfAppsPurchased, spotify) {};
+                        Customer maria7 = new OtherCustomer(typeOfCustomer, name, age, address, profession, noOfAppsUsed, noOfAppsPurchased, fox) {};
+                        break;
+                    case "Kaleem Aftab" :
+                        Customer kaleem1 = new OtherCustomer(typeOfCustomer, name, age, address, profession, noOfAppsUsed, noOfAppsPurchased, fox) {};
+                        Customer kaleem2 = new OtherCustomer(typeOfCustomer, name, age, address, profession, noOfAppsUsed, noOfAppsPurchased, templerun) {};
+                        Customer kaleem3 = new OtherCustomer(typeOfCustomer, name, age, address, profession, noOfAppsUsed, noOfAppsPurchased, hbo) {};
+                        break;
+                    /*case "david" :
+                        Customer david = new AcademicCustomer(typeOfCustomer, name, age, address, profession, noOfAppsUsed, noOfAppsPurchased, bbc) {};
+                        break;
+                    case "david" :
+                        Customer david = new AcademicCustomer(typeOfCustomer, name, age, address, profession, noOfAppsUsed, noOfAppsPurchased, bbc) {};
+                        break;*/
+                /*if ("AcademicCustomer".equals(typeOfCustomer)) {
                     Customer david = new AcademicCustomer(typeOfCustomer, name, age, address, profession, noOfAppsUsed, noOfAppsPurchased, bbc) {};
                     //System.out.println("CREATEDDDDDDDDDDDDDDD");
                 }
-                catch (Exception e) {
-                    System.out.println("Customer class instance could not be created. ().");
+                else if (typeOfCustomer == "AcademicCustomer") {
+                    Customer david = new AcademicCustomer(typeOfCustomer, name, age, address, profession, noOfAppsUsed, noOfAppsPurchased, bbc) {};
+                    //System.out.println("CREATEDDDDDDDDDDDDDDD");
+                }
+                else if (typeOfCustomer == "AcademicCustomer") {
+                    Customer david = new AcademicCustomer(typeOfCustomer, name, age, address, profession, noOfAppsUsed, noOfAppsPurchased, bbc) {};
+                    //System.out.println("CREATEDDDDDDDDDDDDDDD");
+                }*/
                 }
             }
         } catch (SQLException ex) {
@@ -272,7 +377,7 @@ public class ApplicationModel {
             System.out.println("  Customer number " + aCustomer.getName() 
             + " is aged " + aCustomer.getAge()
             + " and lives at " + aCustomer.getAddress());
-        }	
+        }
 
         // verify slip to dock association (1:1)	
         /*System.out.println("First slip is on Dock " 
