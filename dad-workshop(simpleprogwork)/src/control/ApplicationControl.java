@@ -1,9 +1,11 @@
 package control;
 
 import java.io.IOException;
+import java.util.Vector;
 import model.ApplicationModel;
 import utils.ReadQuery;
 import view.ApplicationViewer;
+import model.App;
 
 /**
  * This will be the entry point to our Application and will create the 
@@ -21,9 +23,18 @@ public class ApplicationControl {
        //System.out.println(am.printPets());
        //ApplicationModel.getInstance().setStudents(ReadQuery.readApp("model1-student.csv"));
        //ApplicationViewer av = ApplicationViewer.getInstance();
-       ReadQuery rq = new ReadQuery("appstore","root","");
-       rq.print(rq.doQuery("app"));
-       
-       
+       /*ReadQuery rq = new ReadQuery("appstore");
+       rq.print(rq.doQuery());*/
+       ApplicationModel model = ApplicationModel.getInstance();
+       //model.db_connection("appstore");
+       //model.print(model.doQuery(model.db_connection("appstore")));
+       //model.doQuery(model.db_connection("appstore"),"app","NewsApp");
+       model.createApp(model.doQuery(model.db_connection("appstore"),"app","typeOfApp","NewsApp"));
+       model.createCustomer(model.doQuery(model.db_connection("appstore"),"customer","typeOfCustomer","AcademicCustomer"));
+  
+       //verify App to Customer association (1 - many)
+       //first get the Vector of customers from the App
+   
+   
    }
  }

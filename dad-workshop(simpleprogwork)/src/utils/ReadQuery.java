@@ -24,33 +24,25 @@ public class ReadQuery {
     //Connection con;     //connection object
     Statement stmt;     //statement object
     //ResultSet rs;       //ResultSet object
+    public ArrayList<NewsApp> result = new ArrayList<>();
 
     
-    public ReadQuery(String dbName, String uname, String pwd){
-        String url = "jdbc:mysql://localhost:3306/"+dbName;
-        
+    public ReadQuery(String dbName){
+        String url = "jdbc:mysql://localhost:3306/appstore";
+        String uname = "root";
+        String pwd = "";
         //setup the driver
-        
         try {
             //Class.forName("com.sql.jdbc.Driver").newInstance();
             con = DriverManager.getConnection(url, uname, pwd);
         } catch (SQLException ex) {
             Logger.getLogger(ReadQuery.class.getName()).log(Level.SEVERE, null, ex);
             //e.printStackTrace();
-        } /*catch (ClassNotFoundException ex) {
-            Logger.getLogger(ReadQuery.class.getName()).log(Level.SEVERE, null, ex);
-            //e.printStackTrace();
-        } catch (InstantiationException ex) {
-            Logger.getLogger(ReadQuery.class.getName()).log(Level.SEVERE, null, ex);
-            //ex.printStackTrace();
-        } catch (IllegalAccessException ex) {
-            //ex.printStackTrace();
-            Logger.getLogger(ReadQuery.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
+        } 
     }
     
-    public ArrayList<String> doQuery(String tablename) {
-        String query = "select * from "+tablename;
+    public ArrayList<NewsApp> doQuery() {
+        String query = "select * from app where typeOfApp = 'NewsApp'";
             
         try {
             //PreparedStatement ps = con.prepareStatement(query);
@@ -61,8 +53,7 @@ public class ReadQuery {
         } catch (SQLException ex) {
             Logger.getLogger(ReadQuery.class.getName()).log(Level.SEVERE, null, ex);
         }
-        //public ArrayList<NewsApp> result = new ArrayList<NewsApp>();
-        ArrayList result = new ArrayList();
+        //ArrayList result = new ArrayList();
         try {
             while(rs.next()) {
                 try {
