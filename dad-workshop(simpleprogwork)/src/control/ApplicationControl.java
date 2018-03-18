@@ -6,6 +6,7 @@ import model.ApplicationModel;
 import utils.ReadQuery;
 import view.ApplicationViewer;
 import model.App;
+import view.home;
 
 /**
  * This will be the entry point to our Application and will create the 
@@ -29,9 +30,15 @@ public class ApplicationControl {
        //model.db_connection("appstore");
        //model.print(model.doQuery(model.db_connection("appstore")));
        //model.doQuery(model.db_connection("appstore"),"app","NewsApp");
-       model.createApp(model.doQuery(model.db_connection("appstore"),"app","typeOfApp","NewsApp"));
-       model.createCustomer(model.doQuery(model.db_connection("appstore"),"customer","typeOfCustomer","AcademicCustomer"));
-  
+       model.createApp(model.doQuery(model.db_connection("db_k1653239"),"app","typeOfApp","NewsApp"));
+       model.createCustomer(model.doQuery(model.db_connection("db_k1653239"),"customer","typeOfCustomer","AcademicCustomer"));
+       
+       /*java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new home1().setVisible(true);
+            }
+        });*/
+       
        //verify App to Customer association (1 - many)
        //first get the Vector of customers from the App
    

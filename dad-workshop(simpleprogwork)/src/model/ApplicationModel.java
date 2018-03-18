@@ -82,9 +82,9 @@ public class ApplicationModel {
 
     
     public Connection db_connection(String dbName){
-        String url = "jdbc:mysql://localhost:3306/"+dbName;
-        String uname = "root";
-        String pwd = "";
+        String url = "jdbc:mysql://kunet:3306/"+dbName;
+        String uname = "k1653239";
+        String pwd = "black88piano";
         //setup the driver
         try {
             //Class.forName("com.sql.jdbc.Driver").newInstance();
