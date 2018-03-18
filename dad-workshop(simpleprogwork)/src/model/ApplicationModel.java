@@ -172,6 +172,7 @@ public class ApplicationModel {
         String b = a.replaceAll("  "," ");*/
         //String[] attr = csvString.split(",");
         //String typeOfApp = null;
+        System.out.println("<------------------Apps Details:------------------->\n");
         try {
             //String[] addre = attr[1].split(":");
             /*int noOfDownloads = Integer.parseInt(attr[2]);
@@ -201,11 +202,37 @@ public class ApplicationModel {
                 String genre = rs.getString("genre");
                 int minAgeLimit = rs.getInt("minAgeLimit");
                 
-                System.out.println(typeOfApp + "               " + appName + " " +  appDescription + " " + noOfDownloads +
-                        " " + appCost + " " +  freeApp + " " +  developerName + " " +  appLogoAddress
-                        + " " +  category+ " " + genre + " " +  minAgeLimit);
-                //System.out.println(appName);
-                
+                switch(typeOfApp) {
+                    case "NewsApp" :
+                        System.out.println("Type of App      : "+ typeOfApp + "\n" + 
+                                           "App              : "+ appName + "\n" +  
+                                           "Description      : "+ appDescription + "\n" + 
+                                           "No Of Downloads  : "+ noOfDownloads + "\n" + 
+                                           "Cost             : "+ appCost + "\n" +  
+                                           "Free             : "+ freeApp + "\n" +  
+                                           "Developer Name   : "+ developerName + "\n" +  
+                                           "Logo Address     : "+ appLogoAddress + "\n" +  
+                                           "Category         : "+ category+ "\n" + 
+                                           /*"Genre            : "+ genre + "\n" +  */
+                                           "Min Age Limit    : "+ minAgeLimit + "\n");
+                        //System.out.println(appName);
+                        break;
+                    case "EntmApp" :
+                    case "GamesApp" :
+                        System.out.println("Type of App      : "+ typeOfApp + "\n" + 
+                                           "App              : "+ appName + "\n" +  
+                                           "Description      : "+ appDescription + "\n" + 
+                                           "No Of Downloads  : "+ noOfDownloads + "\n" + 
+                                           "Cost             : "+ appCost + "\n" +  
+                                           "Free             : "+ freeApp + "\n" +  
+                                           "Developer Name   : "+ developerName + "\n" +  
+                                           "Logo Address     : "+ appLogoAddress + "\n" +  
+                                           /*"Category         : "+ category+ "\n" + */
+                                           "Genre            : "+ genre + "\n" +  
+                                           "Min Age Limit    : "+ minAgeLimit + "\n");
+                        //System.out.println(appName);
+                        break;
+                }
                 switch(appName) {
                     case "BBC" :
                         bbc = new NewsApp(typeOfApp, appName, appDescription, noOfDownloads, appCost, freeApp, developerName, appLogoAddress, category, minAgeLimit) {};
@@ -251,7 +278,7 @@ public class ApplicationModel {
         }*/
         //return app;*/
     }       
-    
+    Customer maria1;
     
     public void createCustomer(ResultSet rs){         //called from redShops to add shop to Shop arraylist
         
@@ -259,7 +286,7 @@ public class ApplicationModel {
         String b = a.replaceAll("  "," ");*/
         //String[] attr = csvString.split(",");
         //String typeOfApp = null;
-        System.out.println("Customer Details:");
+        System.out.println("<------------------Customer Details:------------------->\n");
         try {
             //String[] addre = attr[1].split(":");
             /*int noOfDownloads = Integer.parseInt(attr[2]);
@@ -285,8 +312,23 @@ public class ApplicationModel {
                 int noOfAppsUsed = rs.getInt("noOfAppsUsed");
                 int noOfAppsPurchased = rs.getInt("noOfAppsPurchased");
                 
-                System.out.println(typeOfCustomer + " " + name + " " +  age + " " + address +
-                        " " + profession + " " +  noOfAppsUsed + " " +  noOfAppsPurchased);
+                /*System.out.println(typeOfCustomer + " " + name + " " +  age + " " + address +
+                        " " + profession + " " +  noOfAppsUsed + " " +  noOfAppsPurchased);*/
+                /*System.out.println(typeOfCustomer + "\n" + 
+                                   name + "\n" +  
+                                   age + "\n" + 
+                                   address + "\n" + 
+                                   profession + "\n" +  
+                                   noOfAppsUsed + "\n" +  
+                                   noOfAppsPurchased + "\n");*/
+                System.out.println("Type                     : "+ typeOfCustomer + "\n" + 
+                                   "Name                     : "+ name + "\n" +  
+                                   "Age                      : "+ age + "\n" + 
+                                   "Address                  : "+ address + "\n" + 
+                                   "Profession               : "+ profession + "\n" +  
+                                   "No of Apps Used          : "+ noOfAppsUsed + "\n"+
+                                   "No of Apps Purchased     : "+ noOfAppsPurchased + "\n");
+                
                 switch(name) {
                     case "David Jones" :
                         Customer david1 = new AcademicCustomer(typeOfCustomer, name, age, address, profession, noOfAppsUsed, noOfAppsPurchased, bbc) {};
@@ -328,7 +370,7 @@ public class ApplicationModel {
                         Customer daniel4 = new OtherCustomer(typeOfCustomer, name, age, address, profession, noOfAppsUsed, noOfAppsPurchased, needforspeed) {};
                         break;
                     case "Maria Sharapova" :
-                        Customer maria1 = new OtherCustomer(typeOfCustomer, name, age, address, profession, noOfAppsUsed, noOfAppsPurchased, cnn) {};
+                        maria1 = new OtherCustomer(typeOfCustomer, name, age, address, profession, noOfAppsUsed, noOfAppsPurchased, cnn) {};
                         Customer maria2 = new OtherCustomer(typeOfCustomer, name, age, address, profession, noOfAppsUsed, noOfAppsPurchased, templerun) {};
                         Customer maria3 = new OtherCustomer(typeOfCustomer, name, age, address, profession, noOfAppsUsed, noOfAppsPurchased, fornite) {};
                         Customer maria4 = new OtherCustomer(typeOfCustomer, name, age, address, profession, noOfAppsUsed, noOfAppsPurchased, needforspeed) {};
@@ -365,26 +407,130 @@ public class ApplicationModel {
             System.out.println("Customer object cannot be created (createCutomer).");
         }
         
-       Vector customers = bbc.getCustomers();
+       Vector bbccustomers = bbc.getCustomers();
        //next use Vector size method to get number of customers
        
-        System.out.println("App 1 has "+customers.size()+ " customers.");
+        System.out.println("BBC has "+bbccustomers.size()+ " customers.");
         //iterate through Vector to get information on each customer
-        for (int i = 0; i<customers.size(); i++) {
+        for (int i = 0; i<bbccustomers.size(); i++) {
             // get slip reference variable from slips Vector of Dock
-            Customer aCustomer = (Customer) customers.elementAt(i);
+            Customer aCustomer = (Customer) bbccustomers.elementAt(i);
             // verify slip information 
-            System.out.println("  Customer number " + aCustomer.getName() 
+            System.out.println("    BBC Customer Details :" + aCustomer.getName() 
             + " is aged " + aCustomer.getAge()
             + " and lives at " + aCustomer.getAddress());
-        }
-
+        }System.out.println("\n\n");
+        
+       Vector foxcustomers = fox.getCustomers();
+       //next use Vector size method to get number of customers
+        System.out.println("Fox News has "+foxcustomers.size()+ " customers.");
+        //iterate through Vector to get information on each customer
+        for (int i = 0; i<foxcustomers.size(); i++) {
+            // get slip reference variable from slips Vector of Dock
+            Customer aCustomer = (Customer) foxcustomers.elementAt(i);
+            // verify slip information 
+            System.out.println("    Fox News Customer Details :" + aCustomer.getName() 
+            + " is aged " + aCustomer.getAge()
+            + " and lives at " + aCustomer.getAddress());
+        }System.out.println("\n\n");
+        
+       Vector cnncustomers = cnn.getCustomers();
+       //next use Vector size method to get number of customers
+        System.out.println("CNN has "+cnncustomers.size()+ " customers.");
+        //iterate through Vector to get information on each customer
+        for (int i = 0; i<cnncustomers.size(); i++) {
+            // get slip reference variable from slips Vector of Dock
+            Customer aCustomer = (Customer) cnncustomers.elementAt(i);
+            // verify slip information 
+            System.out.println("    CNN Customer Details :" + aCustomer.getName() 
+            + " is aged " + aCustomer.getAge()
+            + " and lives at " + aCustomer.getAddress());
+        }System.out.println("\n\n");
+        
+        Vector netflixcustomers = netflix.getCustomers();
+       //next use Vector size method to get number of customers
+        System.out.println("Netflix has "+netflixcustomers.size()+ " customers.");
+        //iterate through Vector to get information on each customer
+        for (int i = 0; i<netflixcustomers.size(); i++) {
+            // get slip reference variable from slips Vector of Dock
+            Customer aCustomer = (Customer) netflixcustomers.elementAt(i);
+            // verify slip information 
+            System.out.println("    Netflix Customer Details :" + aCustomer.getName() 
+            + " is aged " + aCustomer.getAge()
+            + " and lives at " + aCustomer.getAddress());
+        }System.out.println("\n\n");
+        
+        Vector hbocustomers = hbo.getCustomers();
+       //next use Vector size method to get number of customers
+        System.out.println("HBO has "+hbocustomers.size()+ " customers.");
+        //iterate through Vector to get information on each customer
+        for (int i = 0; i<hbocustomers.size(); i++) {
+            // get slip reference variable from slips Vector of Dock
+            Customer aCustomer = (Customer) hbocustomers.elementAt(i);
+            // verify slip information 
+            System.out.println("    HBO Customer Details :" + aCustomer.getName() 
+            + " is aged " + aCustomer.getAge()
+            + " and lives at " + aCustomer.getAddress());
+        }System.out.println("\n\n");
+        
+        Vector spotifycustomers = spotify.getCustomers();
+       //next use Vector size method to get number of customers
+        System.out.println("Spotify has "+spotifycustomers.size()+ " customers.");
+        //iterate through Vector to get information on each customer
+        for (int i = 0; i<spotifycustomers.size(); i++) {
+            // get slip reference variable from slips Vector of Dock
+            Customer aCustomer = (Customer) spotifycustomers.elementAt(i);
+            // verify slip information 
+            System.out.println("    Spotify Customer Details :" + aCustomer.getName() 
+            + " is aged " + aCustomer.getAge()
+            + " and lives at " + aCustomer.getAddress());
+        }System.out.println("\n\n");
+        
+        
+        Vector templeruncustomers = templerun.getCustomers();
+       //next use Vector size method to get number of customers
+        System.out.println("Temple Run has "+templeruncustomers.size()+ " customers.");
+        //iterate through Vector to get information on each customer
+        for (int i = 0; i<templeruncustomers.size(); i++) {
+            // get slip reference variable from slips Vector of Dock
+            Customer aCustomer = (Customer) templeruncustomers.elementAt(i);
+            // verify slip information 
+            System.out.println("    Temple Run Customer Details :" + aCustomer.getName() 
+            + " is aged " + aCustomer.getAge()
+            + " and lives at " + aCustomer.getAddress());
+        }System.out.println("\n\n");
+        
+        
+        Vector needforspeedcustomers = needforspeed.getCustomers();
+       //next use Vector size method to get number of customers
+        System.out.println("Need For Speed has "+needforspeedcustomers.size()+ " customers.");
+        //iterate through Vector to get information on each customer
+        for (int i = 0; i<needforspeedcustomers.size(); i++) {
+            // get slip reference variable from slips Vector of Dock
+            Customer aCustomer = (Customer) needforspeedcustomers.elementAt(i);
+            // verify slip information 
+            System.out.println("    Need For Speed Customer Details :" + aCustomer.getName() 
+            + " is aged " + aCustomer.getAge()
+            + " and lives at " + aCustomer.getAddress());
+        }System.out.println("\n\n");
+        
+        
+        Vector fornitecustomers = fornite.getCustomers();
+       //next use Vector size method to get number of customers
+        System.out.println("Fornite has "+fornitecustomers.size()+ " customers.");
+        //iterate through Vector to get information on each customer
+        for (int i = 0; i<fornitecustomers.size(); i++) {
+            // get slip reference variable from slips Vector of Dock
+            Customer aCustomer = (Customer) fornitecustomers.elementAt(i);
+            // verify slip information 
+            System.out.println("    Fornite Customer Details :" + aCustomer.getName() 
+            + " is aged " + aCustomer.getAge()
+            + " and lives at " + aCustomer.getAddress());
+        }System.out.println("\n\n");
         // verify slip to dock association (1:1)	
         /*System.out.println("First slip is on Dock " 
-        +   firstSlip.getDock().getId()
-        + " with location " + firstSlip.getDock().getLocation()
-        + " with electricity " + firstSlip.getDock().getElectricity()
-        + " and water " + firstSlip.getDock().getWater());*/
+        +   maria1.getApp().getAppName()
+        + maria1.getApp().getAppDescription());*/
         
        
        
