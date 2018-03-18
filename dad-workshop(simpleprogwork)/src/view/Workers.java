@@ -4,6 +4,7 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import static java.lang.System.err;
@@ -13,12 +14,15 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.DefaultListCellRenderer;
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -27,14 +31,107 @@ import javax.swing.JOptionPane;     //JOptionPane, is so that we can display err
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
+import model.ApplicationModel;
+import model.NewsApp;
+import utils.DBConnect;
 /**
  * @author Me
  */
 public class Workers extends javax.swing.JFrame {
-    Connection con;     //connection object
-    Statement stmt;     //statement object
-    ResultSet rs;       //ResultSet object
+
+    private JList NewsApp;
+    DBConnect con=null;
+    Statement stmt=null;     //statement object
+    ResultSet rs=null;       //ResultSet object
     int curRow = 0;
+    
+    
+    /**
+     * Creates new form Workers
+     */
+    private final Map<String, ImageIcon> imageMap;
+    public Workers() throws SQLException {
+    
+        initComponents();
+        con = new DBConnect();
+        stmt=con.getConnection().createStatement();
+        
+        
+        
+        
+        
+        //bbclabel.setIcon(new ImageIcon("C:\\Users\\Me\\Pictures\\izaz data (NEW)\\KU Yr2\\CI5000 - Programming II\\CI500 - OO Software Development (David)\\Coursework\\bbclogo.png"));
+        /*ImageIcon MyImage = (new ImageIcon("C:\\Users\\Me\\Pictures\\izaz data (NEW)\\KU Yr2\\CI5000 - Programming II\\CI500 - OO Software Development (David)\\Coursework\\bbclogo.png"));
+        Image img = MyImage.getImage();
+        Image newImg = img.getScaledInstance(bbclabel.getWidth(), bbclabel.getHeight(), Image.SCALE.SMOOTH);
+        ImageIcon image = new ImageIcon(newImg);
+        bbclabel.setIcon(image);*/
+        
+        String[] nameList = {"BBC", "Fox News", "CNN", "Temple Run", "Netflix"};
+        imageMap = createImageMap(nameList);
+        JList list = new JList(nameList);
+        list.setCellRenderer(new MarioListRenderer());
+
+        JScrollPane scroll = new JScrollPane(list);
+        scroll.setPreferredSize(new Dimension(300, 400));
+
+        JFrame frame = new JFrame();
+        frame.add(scroll);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.pack();
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(false);
+    }
+    
+    
+    
+    
+    public static void main(String args[]) throws SQLException {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(Workers.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Workers.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Workers.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Workers.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+        //</editor-fold>
+
+        /* Create and display the form */
+        /*java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new Workers().setVisible(true);
+            }
+        });*/
+    //public ArrayList<NewsApp> result = new ArrayList<>();
+        
+        Workers gui = new Workers();
+        gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        gui.setVisible(true);
+        gui.pack();
+        gui.setTitle("Image Program");
+        //populateJList(JList NewsApp);
+        /*SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                new Workers();
+            }
+        });*/
+    }
+    
     
     /*private ImageIcon image1;
     private JLabel label1;
@@ -68,31 +165,30 @@ public class Workers extends javax.swing.JFrame {
         validate();
         
     }*/
-    /**
-     * Creates new form Workers
-     */
-    private final Map<String, ImageIcon> imageMap;
-    public Workers() {
-        initComponents();
-        DoConnect();
+    
+    /*public void populateJList(JList NewsApp) throws SQLException
+{
     
     
-        String[] nameList = {"BBC", "Fox News", "CNN", "Temple Run", "Netflix"};
-        imageMap = createImageMap(nameList);
-        JList list = new JList(nameList);
-        list.setCellRenderer(new MarioListRenderer());
+        String query = "select * from app";/*+" where "+type+" = '"+typeValue+"'";*/
+        
+      /*  DefaultListModel model = new DefaultListModel();
+        stmt = con.createStatement();  //ResultSet.TYPE_SCROLL_SENSITIVE
+            //String SQL = "SELECT * FROM "+tablename;
+        res = stmt.executeQuery( query );
+        
+       
+        
+        Vector<String> temp = new Vector<String>();
+        while (res.next()) //go through each row that your query returns
+        {
+            String itemCode = res.getString(2); //get the element in column "item_code"
+            model.addElement(itemCode); //add each item to the model
+        }
+        NewsApp.setModel(model);
 
-        JScrollPane scroll = new JScrollPane(list);
-        scroll.setPreferredSize(new Dimension(300, 400));
-
-        JFrame frame = new JFrame();
-        frame.add(scroll);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
-    }
-
+}*/
+    
     public class MarioListRenderer extends DefaultListCellRenderer {
 
         Font font = new Font("helvitica", Font.BOLD, 24);
@@ -125,22 +221,22 @@ public class Workers extends javax.swing.JFrame {
         return map;
     }
 
-    /*public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
+    //public static void main(String[] args) {
+       /* SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 new MarioList();
             }
-        });
-    }*/
+        });*/
+    //}
     public void DoConnect( ) {
         try {
             String host = "jdbc:derby://localhost:1527/App";
             String username = "App";
             String password = "app";
-            con = DriverManager.getConnection(host, username, password);
+            //con = DriverManager.getConnection(host, username, password);
             //Here, we're creating a Statement object called stmt. The Statement object needs a Connection object, with
             //the createStatment method.
-            stmt = con.createStatement( ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE );  //ResultSet.TYPE_SCROLL_SENSITIVE
+            //stmt = con.createStatement( ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE );  //ResultSet.TYPE_SCROLL_SENSITIVE
             String SQL = "SELECT * FROM CUSTOMER";
             rs = stmt.executeQuery( SQL );
             //while (rs.next( )) {  //This will move the Cursor to the first record in the table.
@@ -188,10 +284,9 @@ public class Workers extends javax.swing.JFrame {
         btnCancelNewRecord = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jPanel8 = new javax.swing.JPanel();
-        jLabel9 = new javax.swing.JLabel();
-        jPanel7 = new javax.swing.JPanel();
-        jLabel8 = new javax.swing.JLabel();
+        bbclabel = new javax.swing.JLabel();
+        bbclabel1 = new javax.swing.JLabel();
+        bbclabel2 = new javax.swing.JLabel();
         textAddress = new javax.swing.JTextField();
         textNoOfAppsUsed = new javax.swing.JTextField();
         textAge = new javax.swing.JTextField();
@@ -199,6 +294,9 @@ public class Workers extends javax.swing.JFrame {
         textProfession = new javax.swing.JTextField();
         textUserType = new javax.swing.JTextField();
         textNoOfAppsPurchased = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jList1 = new javax.swing.JList<>();
+        jButton1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -306,63 +404,54 @@ public class Workers extends javax.swing.JFrame {
 
         jLabel2.setText("NEWS ");
 
+        bbclabel.setBackground(new java.awt.Color(255, 51, 204));
+        bbclabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/bbclogo.png"))); // NOI18N
+        bbclabel.setText("bbclabel");
+        bbclabel.setMaximumSize(new java.awt.Dimension(300, 300));
+        bbclabel.setMinimumSize(new java.awt.Dimension(300, 300));
+        bbclabel.setPreferredSize(new java.awt.Dimension(300, 300));
+
+        bbclabel1.setBackground(new java.awt.Color(255, 51, 204));
+        bbclabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/bbclogo.png"))); // NOI18N
+        bbclabel1.setText("bbclabel");
+        bbclabel1.setMaximumSize(new java.awt.Dimension(300, 300));
+        bbclabel1.setMinimumSize(new java.awt.Dimension(300, 300));
+        bbclabel1.setPreferredSize(new java.awt.Dimension(300, 300));
+
+        bbclabel2.setBackground(new java.awt.Color(255, 51, 204));
+        bbclabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/bbclogo.png"))); // NOI18N
+        bbclabel2.setText("bbclabel");
+        bbclabel2.setMaximumSize(new java.awt.Dimension(300, 300));
+        bbclabel2.setMinimumSize(new java.awt.Dimension(300, 300));
+        bbclabel2.setPreferredSize(new java.awt.Dimension(300, 300));
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(bbclabel, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(36, 36, 36)
+                        .addComponent(bbclabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(35, 35, 35)
+                        .addComponent(bbclabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel2))
+                .addContainerGap(69, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2)
-                .addContainerGap(56, Short.MAX_VALUE))
-        );
-
-        jPanel8.setBackground(new java.awt.Color(255, 255, 255));
-
-        jLabel9.setText("ENTERTAINMENT");
-
-        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
-        jPanel8.setLayout(jPanel8Layout);
-        jPanel8Layout.setHorizontalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel8Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel9)
-                .addContainerGap(202, Short.MAX_VALUE))
-        );
-        jPanel8Layout.setVerticalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel8Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel9)
-                .addContainerGap(60, Short.MAX_VALUE))
-        );
-
-        jPanel7.setBackground(new java.awt.Color(255, 255, 255));
-
-        jLabel8.setText("GAMES ");
-
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel8)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel8)
-                .addContainerGap(57, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(bbclabel, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bbclabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bbclabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
 
         textAddress.addActionListener(new java.awt.event.ActionListener() {
@@ -395,6 +484,20 @@ public class Workers extends javax.swing.JFrame {
             }
         });
 
+        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane1.setViewportView(jList1);
+
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -414,34 +517,38 @@ public class Workers extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnSaveRecord)
-                    .addComponent(btnUpdateRecord)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addComponent(btnFirst)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(textAge)
-                    .addComponent(textAddress)
-                    .addComponent(textProfession)
-                    .addComponent(textNoOfAppsUsed)
-                    .addComponent(textNoOfAppsPurchased)
-                    .addComponent(textName1, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(textUserType, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnCancelNewRecord)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnPrevious)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnSaveRecord)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(16, 16, 16)
+                                .addComponent(btnFirst)))
+                        .addGap(163, 163, 163)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(textAge)
+                            .addComponent(textAddress)
+                            .addComponent(textProfession)
+                            .addComponent(textNoOfAppsUsed)
+                            .addComponent(textNoOfAppsPurchased)
+                            .addComponent(textName1, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(textUserType, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnNext)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnCancelNewRecord)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(btnPrevious)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnNext))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButton1)
+                            .addComponent(btnUpdateRecord))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jPanel8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -449,10 +556,14 @@ public class Workers extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(57, 57, 57)
+                        .addComponent(jButton1))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(5, 5, 5)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(62, 62, 62)
@@ -476,7 +587,7 @@ public class Workers extends javax.swing.JFrame {
                                 .addComponent(btnDeleteRecord)
                                 .addContainerGap())))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                         .addComponent(textUserType, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(textName1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -640,7 +751,7 @@ public class Workers extends javax.swing.JFrame {
             stmt.close();
             rs.close();
 
-            stmt = con.createStatement( ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE );  //ResultSet.TYPE_SCROLL_SENSITIVE
+            //stmt = con.createStatement( ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE );  //ResultSet.TYPE_SCROLL_SENSITIVE
             String SQL = "SELECT * FROM CUSTOMER";
             rs = stmt.executeQuery( SQL );
 
@@ -680,7 +791,7 @@ public class Workers extends javax.swing.JFrame {
             stmt.close();
             rs.close();
 
-            stmt = con.createStatement( ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE );  //ResultSet.TYPE_SCROLL_SENSITIVE
+            //stmt = con.createStatement( ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE );  //ResultSet.TYPE_SCROLL_SENSITIVE
             String SQL = "SELECT * FROM CUSTOMER";
             rs = stmt.executeQuery( SQL );
 
@@ -858,54 +969,40 @@ public class Workers extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_textProfessionActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        try {
+            // TODO add your handling code here:
+            DefaultListModel DML = new DefaultListModel();
+            String query = "select * from app";
+            rs = stmt.executeQuery(query);
+            while(rs.next()){
+                String name = rs.getString("AppName");
+                DML.addElement(name);
+            }
+            jList1.setModel(DML);
+        } catch (SQLException ex) {
+            Logger.getLogger(Workers.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Workers.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Workers.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Workers.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Workers.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        /*java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Workers().setVisible(true);
-            }
-        });*/
-        /*Workers gui = new Workers();
-        gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        gui.setVisible(true);
-        gui.pack();
-        gui.setTitle("Image Program");*/
-        
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                new Workers();
-            }
-        });
-    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel bbclabel;
+    private javax.swing.JLabel bbclabel1;
+    private javax.swing.JLabel bbclabel2;
     private javax.swing.JButton btnCancelNewRecord;
     private javax.swing.JButton btnDeleteRecord;
     private javax.swing.JButton btnFirst;
@@ -915,22 +1012,21 @@ public class Workers extends javax.swing.JFrame {
     private javax.swing.JButton btnPrevious;
     private javax.swing.JButton btnSaveRecord;
     private javax.swing.JButton btnUpdateRecord;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
+    private javax.swing.JList<String> jList1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel8;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField textAddress;
     private javax.swing.JTextField textAge;
     private javax.swing.JTextField textName;
