@@ -217,7 +217,7 @@ public class ApplicationModel {
                                            "Min Age Limit    : "+ minAgeLimit + "\n");
                         //System.out.println(appName);
                         break;
-                    case "EntmApp" :
+                    case "EntertainmentApp" :
                     case "GamesApp" :
                         System.out.println("Type of App      : "+ typeOfApp + "\n" + 
                                            "App              : "+ appName + "\n" +  
@@ -406,8 +406,8 @@ public class ApplicationModel {
         } catch (SQLException ex) {
             System.out.println("Customer object cannot be created (createCutomer).");
         }
-        System.out.println("\n\n");
-        System.out.println("<--------------------------------------------------------------App Users Data:-------------------------------------------------------------->\n");
+        System.out.println("\n");
+        System.out.println("<--------------------------------------------------------------App Users Data:-------------------------------------------------------------->\n\n");
         
        Vector bbccustomers = bbc.getCustomers();
        //next use Vector size method to get number of customers
