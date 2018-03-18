@@ -9,7 +9,6 @@ import utils.ReadQuery;
 import view.ApplicationViewer;
 import model.App;
 import view.Workers;
-import view.home;
 import view.Workers;
 import javax.swing.JList;
 
@@ -31,12 +30,12 @@ public class ApplicationControl {
        //ApplicationViewer av = ApplicationViewer.getInstance();
        /*ReadQuery rq = new ReadQuery("appstore");
        rq.print(rq.doQuery());*/
-       //ApplicationModel model = ApplicationModel.getInstance();
+       ApplicationModel model = ApplicationModel.getInstance();
        //model.db_connection("appstore");
        //model.print(model.doQuery(model.db_connection("appstore")));
        //model.doQuery(model.db_connection("appstore"),"app","NewsApp");
-       //model.createApp(model.doQuery(model.db_connection("db_k1653239"),"app","typeOfApp","NewsApp"));
-       //model.createCustomer(model.doQuery(model.db_connection("db_k1653239"),"customer","typeOfCustomer","AcademicCustomer"));*/
+       model.createApp(model.doQuery(model.db_connection("db_k1653239"),"app","typeOfApp","NewsApp"));
+       model.createCustomer(model.doQuery(model.db_connection("db_k1653239"),"customer","typeOfCustomer","AcademicCustomer"));
        
        /*Workers gui = new Workers();
         gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
