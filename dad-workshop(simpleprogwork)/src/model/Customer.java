@@ -7,6 +7,7 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 /**
  *
  * @author dave
@@ -23,6 +24,7 @@ public abstract class Customer implements Comparable<Customer> {
     protected int noOfAppsPurchased;
     //private List<App> apps = new ArrayList<>();
     private App app;
+    //private Vector apps;
 
     public Customer(String typeOfCustomer, String name, int age, String address, String profession, int noOfAppsUsed, 
                                                                  int noOfAppsPurchased, App aApp) {
@@ -39,8 +41,16 @@ public abstract class Customer implements Comparable<Customer> {
         app.addCustomerToApp(this); //Customer customer
         //initially no app in customer
         setApp(null);
+        //apps = new Vector(50);
     }
-
+    /*//custom method addCustomerToApp
+    public void addAppToCustomer(App anApp){
+        apps.addElement(anApp);
+        anApp.setCustomer(this);     //connect customer to app (1..1)
+    }
+    //custom method to return vector of customers
+    public Vector getApps() {return apps;}*/
+    
     public String getTypeOfCustomer() { return typeOfCustomer; }
     public String getName() { return name; }
     public int getAge() { return age; }

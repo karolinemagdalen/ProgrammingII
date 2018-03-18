@@ -18,6 +18,7 @@ public abstract class App implements Comparable<App> {
     protected String developerName;
     protected String appLogoAddress;
     //private List<Customer> customers = new ArrayList<>();
+    //private Customer customer;
     private Vector customers;
     
     public App(String typeOfApp, String appName, String appDescription, int noOfDownloads, double appCost, boolean freeApp, String developerName, String appLogoAddress) {
@@ -30,6 +31,12 @@ public abstract class App implements Comparable<App> {
         this.developerName = developerName;
         this.appLogoAddress = appLogoAddress;
         customers = new Vector(50);
+        /*//assign customer to existing app
+        setCustomer(aCustomer);
+        //tell App to assciate with this slip
+        customer.addAppToCustomer(this); //Customer customer
+        //initially no app in customer
+        setCustomer(null);*/
     }
     
     //custom method addCustomerToApp
@@ -49,6 +56,7 @@ public abstract class App implements Comparable<App> {
     public boolean isFreeApp() { return freeApp; }
     public String getDeveloperName() { return developerName; }
     public String getAppLogoAddress() { return appLogoAddress; }
+    //public Customer getCustomer() { return customer; }
 
     public void setTypeOfApp(String typeOfApp) { this.typeOfApp = typeOfApp; }
     public void setAppName(String appName) { this.appName = appName; }
@@ -58,8 +66,7 @@ public abstract class App implements Comparable<App> {
     public void setFreeApp(boolean freeApp) { this.freeApp = freeApp; }
     public void setDeveloperName(String developerName) { this.developerName = developerName; }
     public void setAppLogoAddress(String appLogoAddress) { this.appLogoAddress = appLogoAddress; }
-    
-    
+    //public void setCustomer(Customer customer) { this.customer = customer; }
     
    // @Override
    // override the  public String toString() method

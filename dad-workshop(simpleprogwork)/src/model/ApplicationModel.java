@@ -172,7 +172,7 @@ public class ApplicationModel {
         String b = a.replaceAll("  "," ");*/
         //String[] attr = csvString.split(",");
         //String typeOfApp = null;
-        System.out.println("<------------------Apps Details:------------------->\n");
+        System.out.println("<--------------------------------------------------------------Apps Details:-------------------------------------------------------------->\n");
         try {
             //String[] addre = attr[1].split(":");
             /*int noOfDownloads = Integer.parseInt(attr[2]);
@@ -286,7 +286,7 @@ public class ApplicationModel {
         String b = a.replaceAll("  "," ");*/
         //String[] attr = csvString.split(",");
         //String typeOfApp = null;
-        System.out.println("<------------------Customer Details:------------------->\n");
+        System.out.println("<--------------------------------------------------------------Customer Details:-------------------------------------------------------------->\n");
         try {
             //String[] addre = attr[1].split(":");
             /*int noOfDownloads = Integer.parseInt(attr[2]);
@@ -406,6 +406,8 @@ public class ApplicationModel {
         } catch (SQLException ex) {
             System.out.println("Customer object cannot be created (createCutomer).");
         }
+        System.out.println("\n\n");
+        System.out.println("<--------------------------------------------------------------App Users Data:-------------------------------------------------------------->\n");
         
        Vector bbccustomers = bbc.getCustomers();
        //next use Vector size method to get number of customers
